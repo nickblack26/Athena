@@ -31,6 +31,8 @@ struct ContentView: View {
         )
         .task {
             do {
+                var base = supabase.client.from("proposals").select()
+                base = base.fullTextSearch("name", query: "")
                 self.proposals = try await supabase.client
                     .from("proposals")
                     .select()
@@ -44,7 +46,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    @State var supabaseManager = SupabaseManager()
+    @Previewable @State var supabaseManager = SupabaseManager()
     return ContentView().environment(supabaseManager).frame(
         minWidth: 1920,
         minHeight: 1080

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct Input: TextFieldStyle {
     var isFocused: Bool = false
-    var background: BackgroundStyle = .background
+    var background = Color.background
     
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
@@ -14,7 +14,7 @@ struct Input: TextFieldStyle {
                 RoundedRectangle(cornerRadius: radius * 0.5)
                     .fill(background)
                     .strokeBorder(
-                        .input,
+                        .borderInput,
                         style: .init(lineWidth: 1)
                     )
             }
@@ -40,5 +40,5 @@ struct Input: TextFieldStyle {
         .textFieldStyle(Input())
     }
     .frame(minWidth: 500, minHeight: 500)
-    .background()
+    .background(Color.muted.opacity(0.50))
 }

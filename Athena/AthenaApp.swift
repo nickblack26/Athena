@@ -8,16 +8,22 @@ struct AthenaApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .background(.muted)
+            if let _ = supabaseManager.user {
+                ContentView()
+                    .background(.muted.opacity(0.5))
+            } else {
+                LoginView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.muted.opacity(0.5))
+            }
         }
         .windowStyle(.hiddenTitleBar)
         .environment(supabaseManager)
         
         WindowGroup(for: PublicSchema.ProposalsSelect.self) { proposal in
-            if let wrappedProposal = proposal.wrappedValue {
+            if let wrappedProposal = proposal.wrappedValue, let _ = supabaseManager.user  {
                 ProposalDetail(wrappedProposal)
-                    .background(.muted)
+                    .background(.muted.opacity(0.5))
             }
         }
         .windowStyle(.hiddenTitleBar)

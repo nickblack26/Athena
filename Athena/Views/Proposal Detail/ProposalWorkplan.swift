@@ -90,7 +90,10 @@ struct ProposalWorkplan: View {
                 self.templates = try await ConnectWiseManager.shared.client.getItem(
                     [ProjectTemplate].self,
                     from: .project(.projectTemplates()),
-                    with: .init(conditions: [\.description:""], fields: [\.id])
+                    with: .init(
+                        conditions: [\.description:""]
+//                        fields: [\.id]
+                    )
                 )
                 
                 self.phases = try await supabase.client.from("phases")
